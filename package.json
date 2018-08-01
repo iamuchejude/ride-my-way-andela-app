@@ -1,0 +1,37 @@
+{
+  "name": "ride-my-way-andela-app",
+  "version": "1.0.0",
+  "description": "Ride my way app",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamuchejude/ride-my-way-andela-app.git"
+  },
+  "keywords": [
+    "App",
+    "Frontend",
+    "UI",
+    "RideMyWay",
+    "App",
+    "Carpooling",
+    "Andela",
+    "Ride",
+    "sharing",
+    "Service"
+  ],
+  "author": "Uche Jude",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamuchejude/ride-my-way-andela-app/issues"
+  },
+  "homepage": "https://github.com/iamuchejude/ride-my-way-andela-app#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0"
+  }
+}
