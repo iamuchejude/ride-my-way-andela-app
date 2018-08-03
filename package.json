@@ -4,7 +4,8 @@
   "description": "Ride my way app",
   "main": "src/app.js",
   "scripts": {
-    "build": "babel src/ -d assets/js && babel --presets es2015 src/ -d assets/js"
+    "clean": "rimraf ./assets/js",
+    "build": "npm run clean && babel src/ -d assets/js && babel --presets es2015 src/ -d assets/js"
   },
   "repository": {
     "type": "git",
