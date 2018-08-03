@@ -1,4 +1,4 @@
-let showInputMessage = (status, message, elem) => {
+const showInputMessage = (status, message, elem) => {
   elem.classList.remove('success', 'error');
   elem.classList.add(status);
   elem.innerHTML = message;
@@ -46,33 +46,33 @@ loginPassword.addEventListener('keyup', (e) => {
 
 const login = (e) => {
   e.preventDefault();
-  if (loginValid == false) {
+  if (loginValid === false) {
     showInputMessage('error', 'Error Occured!', loginForm.children[0]);
   } else {
-    // showInputMessage('success', 'Validated Successfully', loginForm.children[0]);
     const user = {
-      email: loginEmail.value,
-      password: loginPassword.value
+      email: 'loginEmail.value',
+      password: 'loginPassword.value',
     };
-
-    // console.log(JSON.stringify(loginData));
 
     fetch('http://localhost:9999/api/v1/auth/login', {
       method: 'POST',
       headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(user),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.status) {
-        showInputMessage('error', data.message, loginForm.children[0]);
-      } else {
-        showInputMessage('success', data.message, loginForm.children[0]);
-      };
-    });
+      .then(res => res.json())
+      .then((data) => {
+        if (data.status) {
+          showInputMessage('error', data.message, loginForm.children[0]);
+        } else {
+          localStorage.setItem('token', data.token);
+          showInputMessage('success', `${data.message} You will be redirected in 5secs`, loginForm.children[0]);
+          window.setTimeout(() => {
+            window.location = './user/index.html';
+          }, 5000);
+        }
+      });
   }
 };
 

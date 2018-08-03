@@ -1,15 +1,3 @@
-// const showInputMessage = (status, message, elem) => {
-//   elem.classList.remove('success', 'error');
-//   elem.classList.add(status);
-//   elem.innerHTML = message;
-//   elem.style.display = 'block';
-// };
-
-// const validateEmail = (email) => {
-//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   return re.test(String(email).toLowerCase());
-// };
-
 const registerForm = document.querySelector('#register_form');
 const registerName = document.querySelector('#register_name');
 const registerEmail = document.querySelector('#register_email');
@@ -91,7 +79,34 @@ const register = (e) => {
   if (registerValid === false) {
     showInputMessage('error', 'Error Occured!', registerForm.children[0]);
   } else {
-    showInputMessage('success', 'Validated Successfully', registerForm.children[0]);
+    const user = {
+      name: registerName.value,
+      email: registerEmail.value,
+      password: registerPassword.value,
+    };
+
+    console.log(JSON.stringify(user));
+
+    fetch('http://localhost:9999/api/v1/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then((data) => {
+        if (data.status) {
+          showInputMessage('error', data.message, registerForm.children[0]);
+        } else {
+          localStorage.setItem('token', data.token);
+          showInputMessage('success', `${data.message} You will be redirected in 5secs`, registerForm.children[0]);
+          window.setTimeout(() => {
+            window.location = './user/index.html';
+          }, 5000);
+        }
+      });
   }
 };
 

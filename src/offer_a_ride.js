@@ -2,6 +2,8 @@ const offerRideForm = document.querySelector('#offer-a-ride-form');
 const from = document.querySelector('#from');
 const to = document.querySelector('#to');
 const seats = document.querySelector('#seats');
+const date = document.querySelector('#date');
+const time = document.querySelector('#time');
 
 let offerRideValid = false;
 
@@ -68,7 +70,28 @@ const offerRide = (e) => {
   if (offerRideValid === false) {
     showInputMessage('error', 'Error Occured!', offerRideForm.children[0]);
   } else {
-    showInputMessage('success', 'Validated Successfully', offerRideForm.children[0]);
+    const ride = {startLocation: from.value,destination: to.value,seats: seats.value,departureDate: date.value,departureTime: time.value};
+
+    fetch('http://localhost:9999/api/v1/users/rides', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(ride),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          showInputMessage('error', data.message, loginForm.children[0]);
+        } else {
+          localStorage.setItem('token', data.token);
+          showInputMessage('success', `${data.message}`, loginForm.children[0]);
+          window.setTimeout(() => {
+            window.location = './ride_offers.html';
+          }, 5000);
+        };
+      });
   }
 };
 
