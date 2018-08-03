@@ -1,31 +1,33 @@
-// const showInputMessage = (status, message, elem) => {
-//   elem.classList.remove('success', 'error');
-//   elem.classList.add(status);
-//   elem.innerHTML = message;
-//   elem.style.display = 'block';
-// };
+'use strict';
 
-// const validateEmail = (email) => {
-//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   return re.test(String(email).toLowerCase());
-// };
+var showInputMessage = function showInputMessage(status, message, elem) {
+  elem.classList.remove('success', 'error');
+  elem.classList.add(status);
+  elem.innerHTML = message;
+  elem.style.display = 'block';
+};
 
-const registerForm = document.querySelector('#register_form');
-const registerName = document.querySelector('#register_name');
-const registerEmail = document.querySelector('#register_email');
-const registerPassword = document.querySelector('#register_password');
-const registerVerifyPassword = document.querySelector('#register_verify_password');
+var validateEmail = function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
 
-let registerValid = false;
+var registerForm = document.querySelector('#register_form');
+var registerName = document.querySelector('#register_name');
+var registerEmail = document.querySelector('#register_email');
+var registerPassword = document.querySelector('#register_password');
+var registerVerifyPassword = document.querySelector('#register_verify_password');
 
-registerName.addEventListener('keyup', (e) => {
+var registerValid = false;
+
+registerName.addEventListener('keyup', function (e) {
   e.preventDefault();
 
   if (e.target.value == null || e.target.value.length < 2) {
     showInputMessage('error', 'Name is required', registerName.parentElement.children[2]);
     registerValid = false;
   } else {
-    const hasNumberAndSpecialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9?]/;
+    var hasNumberAndSpecialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9?]/;
     if (hasNumberAndSpecialCharacters.test(e.target.value)) {
       showInputMessage('error', 'Name must contain only alphabets and spaces', registerName.parentElement.children[2]);
       registerValid = false;
@@ -40,7 +42,7 @@ registerName.addEventListener('keyup', (e) => {
   }
 });
 
-registerEmail.addEventListener('keyup', (e) => {
+registerEmail.addEventListener('keyup', function (e) {
   e.preventDefault();
 
   if (e.target.value === null || e.target.value.length < 1) {
@@ -56,7 +58,7 @@ registerEmail.addEventListener('keyup', (e) => {
   }
 });
 
-registerPassword.addEventListener('keyup', (e) => {
+registerPassword.addEventListener('keyup', function (e) {
   e.preventDefault();
   if (e.target.value == null || e.target.value.length < 1) {
     showInputMessage('error', 'Password is required', registerPassword.parentElement.children[2]);
@@ -71,7 +73,7 @@ registerPassword.addEventListener('keyup', (e) => {
   }
 });
 
-registerVerifyPassword.addEventListener('keyup', (e) => {
+registerVerifyPassword.addEventListener('keyup', function (e) {
   e.preventDefault();
   if (e.target.value == null || e.target.value.length < 1) {
     showInputMessage('error', 'Password is required', registerVerifyPassword.parentElement.children[2]);
@@ -86,7 +88,7 @@ registerVerifyPassword.addEventListener('keyup', (e) => {
   }
 });
 
-const register = (e) => {
+var register = function register(e) {
   e.preventDefault();
   if (registerValid === false) {
     showInputMessage('error', 'Error Occured!', registerForm.children[0]);

@@ -1,22 +1,24 @@
-let showInputMessage = (status, message, elem) => {
+'use strict';
+
+var showInputMessage = function showInputMessage(status, message, elem) {
   elem.classList.remove('success', 'error');
   elem.classList.add(status);
   elem.innerHTML = message;
   elem.style.display = 'block';
 };
 
-const validateEmail = (email) => {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var validateEmail = function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
 
-const loginForm = document.querySelector('#login_form');
-const loginEmail = document.querySelector('#login_email');
-const loginPassword = document.querySelector('#login_password');
+var loginForm = document.querySelector('#login_form');
+var loginEmail = document.querySelector('#login_email');
+var loginPassword = document.querySelector('#login_password');
 
-let loginValid = false;
+var loginValid = false;
 
-loginEmail.addEventListener('keyup', (e) => {
+loginEmail.addEventListener('keyup', function (e) {
   e.preventDefault();
 
   if (e.target.value == null || e.target.value.length < 1) {
@@ -32,7 +34,7 @@ loginEmail.addEventListener('keyup', (e) => {
   }
 });
 
-loginPassword.addEventListener('keyup', (e) => {
+loginPassword.addEventListener('keyup', function (e) {
   e.preventDefault();
   if (e.target.value == null || e.target.value.length < 1) {
     showInputMessage('error', 'Password is required', loginPassword.parentElement.children[2]);
@@ -44,29 +46,26 @@ loginPassword.addEventListener('keyup', (e) => {
   }
 });
 
-const login = (e) => {
+var login = function login(e) {
   e.preventDefault();
   if (loginValid == false) {
     showInputMessage('error', 'Error Occured!', loginForm.children[0]);
   } else {
     // showInputMessage('success', 'Validated Successfully', loginForm.children[0]);
-    const user = {
+    var loginData = {
       email: loginEmail.value,
-      password: loginPassword.value
+      password: loginPassword.password
     };
-
-    // console.log(JSON.stringify(loginData));
 
     fetch('http://localhost:9999/api/v1/auth/login', {
       method: 'POST',
       headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
+        'Content-Type': 'Application/JSON'
       },
-      body: JSON.stringify(user),
-    })
-    .then((res) => res.json())
-    .then((data) => {
+      body: JSON.stringify(loginData)
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
       if (data.status) {
         showInputMessage('error', data.message, loginForm.children[0]);
       } else {
@@ -75,6 +74,5 @@ const login = (e) => {
     });
   }
 };
-
 
 loginForm.addEventListener('submit', login);
