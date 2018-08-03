@@ -54,7 +54,7 @@ const login = (e) => {
       password: 'loginPassword.value',
     };
 
-    fetch('http://localhost:9999/api/v1/auth/login', {
+    fetch('https://ride-my-way-andela.herokuapp.com/api/v1/auth/login', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

@@ -87,7 +87,7 @@ const register = (e) => {
 
     console.log(JSON.stringify(user));
 
-    fetch('http://localhost:9999/api/v1/auth/signup', {
+    fetch('https://ride-my-way-andela.herokuapp.com/api/v1/auth/signup', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {

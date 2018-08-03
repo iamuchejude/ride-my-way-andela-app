@@ -70,17 +70,19 @@ const offerRide = (e) => {
   if (offerRideValid === false) {
     showInputMessage('error', 'Error Occured!', offerRideForm.children[0]);
   } else {
-    const ride = {startLocation: from.value,destination: to.value,seats: seats.value,departureDate: date.value,departureTime: time.value};
+    const ride = {
+      startLocation: from.value, destination: to.value, seats: seats.value, departureDate: date.value, departureTime: time.value,
+    };
 
-    fetch('http://localhost:9999/api/v1/users/rides', {
+    fetch('https://ride-my-way-andela.herokuapp.com/api/v1/users/rides', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(ride),
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then((data) => {
         if (data.status) {
           showInputMessage('error', data.message, loginForm.children[0]);
@@ -90,7 +92,7 @@ const offerRide = (e) => {
           window.setTimeout(() => {
             window.location = './ride_offers.html';
           }, 5000);
-        };
+        }
       });
   }
 };
